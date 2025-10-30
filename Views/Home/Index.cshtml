@@ -1,0 +1,130 @@
+﻿@model List<UserManagementWebApp.Models.User>
+@{
+    ViewData["Title"] = "User Management";
+}
+
+
+<div class="text-center">
+    <h1 class="display-4">USER MANAGEMENT WEB APPLICATION</h1>
+    <div class="d-flex justify-content-around align-items-center mb-3">
+        <div class="col-5 d-flex justify-content-between">
+            <button class="btn btn-success flex-fill mx-2" data-bs-toggle="modal" data-bs-target="#addUserModal">Thêm</button>
+            <button class="btn btn-primary flex-fill mx-2" id="modifyBtn">Sửa</button>
+            <button class="btn btn-danger flex-fill mx-2" id="deleteBtn">Xóa đã chọn</button>
+        </div>
+        <div class="col-6">
+            <form class="d-flex" role="search">
+                <input class="form-control me-2" type="search" placeholder="Tìm kiếm..." aria-label="Search">
+                <button class="btn btn-primary w-25" type="submit" id="searchBtn">Tìm</button>
+            </form>
+        </div>
+    </div>
+    <table id="userTable" class="table table-bordered table-hover table-striped align-middle shadow-sm">
+        <thead>
+            <tr>
+                <th><input type="checkbox" id="selectAll" aria-label="Chọn tất cả người dùng" /></th>
+                <th>STT</th>
+                <th>Họ và tên</th>
+                <th>Ngày sinh</th>
+                <th>Email</th>
+                <th>Số điện thoại</th>
+                <th>Địa chỉ</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>
+                        <input type="checkbox" class="select-user" data-id="@user.Id" aria-label="Chọn người dùng @user.Name" />
+                    </td>
+                    <td>@user.Id</td>
+                    <td>@user.Name</td>
+                    <td>@user.DateOfBirth.ToString("yyyy-MM-dd")</td>
+                    <td>@user.Email</td>
+                    <td>@user.PhoneNumber</td>
+                    <td>@user.Address</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div class="modal fade" id="addUserModal" tabindex="-1" aria-labelledby="addUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="addUserModalLabel">Thêm người dùng mới</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="addUserForm">
+                        <div class="mb-3">
+                            <label class="form-label">Họ và tên</label>
+                            <input type="text" class="form-control" id="name" required>
+                        </div>
+                        <div class="mb-3"> 
+                            <label class="form-label">Ngày sinh</label>
+                            <input type="date" class="form-control" id="dob" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" id="email" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Số điện thoại</label>
+                            <input type="text" class="form-control" id="phone" required>
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label">Địa chỉ</label>
+                            <input type="text" class="form-control" id="address" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" id="saveUserBtn">Tạo mới</button>
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="editUserModal" tabindex="-1" aria-labelledby="editUserModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header bg-primary text-white">
+                    <h5 class="modal-title" id="editUserModalLabel">Sửa thông tin người dùng</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="editUserForm" class="row g-3">
+                        <input type="hidden" id="editId" />
+                        <div class="col-md-6">
+                            <label for="editName" class="form-label">Họ và tên</label>
+                            <input type="text" class="form-control" id="editName" placeholder="Nhập họ và tên" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="editDob" class="form-label">Ngày sinh</label>
+                            <input type="date" class="form-control" id="editDob" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="editEmail" class="form-label">Email</label>
+                            <input type="email" class="form-control" id="editEmail" placeholder="example@gmail.com" required>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="editPhone" class="form-label">Số điện thoại</label>
+                            <input type="tel" class="form-control" id="editPhone" placeholder="0123456789" required>
+                        </div>
+                        <div class="col-12">
+                            <label for="editAddress" class="form-label">Địa chỉ</label>
+                            <input type="text" class="form-control" id="editAddress" placeholder="Nhập địa chỉ" required>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Hủy</button>
+                    <button type="button" class="btn btn-primary" id="saveEditBtn">Lưu thay đổi</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>

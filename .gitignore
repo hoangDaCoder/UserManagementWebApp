@@ -1,0 +1,21 @@
+# Build folders
+bin/
+obj/
+
+# User-specific files
+.vs/
+*.user
+*.suo
+
+# Logs
+*.log
+
+# Publish output
+/wwwroot/lib/
+
+# System files
+Thumbs.db
+*.DS_Store
+
+# JSON data (optional)
+Data/Users.json
